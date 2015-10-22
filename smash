@@ -28,6 +28,22 @@ var argv = optimist
       type: "boolean",
       default: false
     })
+    .options("source-map", {
+      describe: "output file where to generate source map",
+      type: "string"
+    })
+    .options("source-map-root", {
+      describe: "path to the original source to be included in the source map",
+      type: "string"
+    })
+    .options("source-map-url", {
+      describe: "path to the source map to be added in //# sourceMappingURL.  Defaults to the value passed with --source-map",
+      type: "string"
+    })
+    .options("in-source-map", {
+      describe: "input source map, useful if you're compressing JS that was generated from some other original code",
+      type: "string"
+    })
     .options("help", {
       describe: "display this helpful message",
       type: "boolean",
@@ -52,4 +68,25 @@ if (argv.list) return void smash.readAllImports(argv._, argv, function(error, fi
   console.log(files.join("\n"));
 });
 
-smash(argv._).pipe(process.stdout);
+var options = {};
+if (argv['source-map']) {
+    options.sourceMap = argv['source-map'];
+}
+
+if (argv['source-map-root']) {
+    options.sourceMapRoot = argv['source-map-root'];
+}
+
+if (argv['source-map-url']) {
+    options.sourceMapUrl = argv['source-map-url'];
+}
+
+if (argv['source-map-root']) {
+    options.sourceMapRoot = argv['source-map-root'];
+}
+
+if (argv['in-source-map']) {
+    options.inputSourceMap = argv['in-source-map'];
+}
+
+smash(argv._, options).pipe(process.stdout);

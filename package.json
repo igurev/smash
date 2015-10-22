@@ -24,7 +24,8 @@
   "engineStrict": true,
   "dependencies": {
     "optimist": "0.3.x",
-    "queue-async": "1.0.x"
+    "queue-async": "1.0.x",
+    "source-map": "^0.5.1"
   },
   "devDependencies": {
     "vows": "0.7.x"
